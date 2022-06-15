@@ -1,0 +1,26 @@
+{
+  "name": "react-native-waves",
+  "version": "1.1.12",
+  "description": "",
+  "main": "lib/index.js",
+  "scripts": {
+    "build": "rm -rf lib && tsc",
+    "release": "npm run build && npm version patch && npm publish",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "typescript": "^4.7.3"
+  },
+  "peerDependencies": {
+    "react": "*",
+    "react-native": "*",
+    "react-native-reanimated": "*",
+    "react-native-svg": "*"
+  },
+  "files": [
+    "lib/index.js",
+    "lib/index.d.ts"
+  ]
+}
