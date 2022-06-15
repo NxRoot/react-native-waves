@@ -11,3 +11,4 @@ lib
 # Dependency directory
 node_modules
 *.tsbuildinfo
+example.tsx

@@ -5,22 +5,36 @@ Create beautiful wave animations using [React Native](https://reactnative.dev/)
 * [react-native-svg](https://github.com/react-native-svg/react-native-svg#installation)
 * [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/)
 
-## Demo
+## Demo (Using 4 waves)
 <img src="https://i.ibb.co/WD1h1yt/ezgif-com-gif-maker-2.gif" alt="Alt text" style="float: left" title="Optional title">
 
 ## Installation
+**Module**
 ```
 npm i react-native-waves
 ```
+**Import**
+```
+import Wave from "react-native-waves"
+```
 
 ## Examples
+
 **Simple Wave**
 ```
 <Wave placement="bottom"/>
 ```
 
+**Complex Wave**
+```
+<Wave placement="bottom" speed={20} maxPoints={8} delta={30}/>
+```
+
 **Multiple Waves**
 ```
+<Wave placement="top" />
+<Wave placement="top" gap={20} color="#003d66"/>
+
 <Wave placement="bottom" />
 <Wave placement="bottom" gap={20} color="#003d66"/>
 ```

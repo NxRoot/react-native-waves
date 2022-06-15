@@ -7,9 +7,6 @@ import Animated, { useAnimatedProps, useSharedValue } from "react-native-reanima
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
 
-let lastUpdate: any = null
-let totalTime = 0
-
 export interface WaveProps {
   placement?: string
   speed?: number
@@ -63,9 +60,11 @@ export default function Wave({
   let d = useSharedValue(buildPath(calculateWavePoints(0)))
   const animatedProps = useAnimatedProps(() => ({ d: d.value }), [d.value])
 
-  let handle: any = null
+  let handle: number
+  let lastUpdate: number
+  let totalTime = 0
 
-  function calculateWavePoints(factor: any) {
+  function calculateWavePoints(factor: number) {
     const points = []
 
     for (var i = 0; i <= maxPoints; i++) {
@@ -79,7 +78,7 @@ export default function Wave({
     return points
   }
 
-  function buildPath(points: any) {
+  function buildPath(points: { x: number, y: number }[]) {
     let SVGString = "M " + [points[0].x, points[0].y].join(" ")
 
     const cp0 = {
