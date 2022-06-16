@@ -12,8 +12,8 @@ export default function HomePage() {
   return (
     <SafeAreaView style={styles.container} containerStyle={styles.wrapper}>
 
-      <Wave placement="top" speed={speed} flip delta={delta}/>
-      <Wave placement="top" gap={20} speed={speed} color="#006bb3" delta={delta} flip/>
+      <Wave placement="top" speed={speed} delta={delta}/>
+      <Wave placement="top" gap={20} speed={speed} color="#006bb3" delta={delta}/>
 
       <View>
         <Text style={styles.title}>Waves</Text>
