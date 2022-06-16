@@ -51,13 +51,13 @@ function Wave({
       position: "absolute",
       width: WIDTH,
       bottom: 50,
-      transform: [{ rotateX: "180deg" }, { rotateY: flip ? "180deg" : "0deg" }],
+      transform: [{ rotateX: "180deg" }, { rotateY: flip ? "0deg" : "180deg" }],
     },
     bottom: {
-      position: "absolute",
-      width: WIDTH,
-      bottom: -55,
-      transform: [{ rotateY: flip ? "180deg" :"0deg" }],
+        position: "absolute",
+        width: WIDTH,
+        bottom: -55,
+        transform: [{ rotateY: flip ? "180deg" : "0deg" }],
     },
   })
 
