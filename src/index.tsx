@@ -2,7 +2,8 @@ import React, { useEffect } from "react"
 import { View, StyleSheet } from "react-native"
 import Svg, { Path } from "react-native-svg"
 import { Dimensions } from "react-native"
-import Animated, { useAnimatedProps, useSharedValue } from "react-native-reanimated"
+import Animated, { cancelAnimation, useAnimatedProps, useSharedValue, withRepeat, withTiming } from "react-native-reanimated"
+import { WavePath } from "./worklets"
 
 const WIDTH = Dimensions.get("window").width
 const HEIGHT = Dimensions.get("window").height
@@ -16,11 +17,13 @@ export interface WaveProps {
   delta?: number
   color?: string
   gap?: number
+  flip?: boolean
 }
 
 /**
  *
- * @param {{ placement?: 'top' | 'bottom', speed?: number, maxPoints?: number, width?: number, height?: number, delta?: number, color?: string, gap?: number }} placement view position
+ * @link https://www.npmjs.com/package/react-native-waves/
+ * @param {string} placement view position
  * @param {number} speed animation speed
  * @param {number} maxPoints number of wave points
  * @param {number} width wave width
@@ -28,9 +31,10 @@ export interface WaveProps {
  * @param {number} delta wave delta
  * @param {string} color wave color
  * @param {number} gap wave gap - used to adjust gap between waves with equal placement
+ * @param {number} flip flip view
  * @returns JSX.Element
  */
-export default function Wave({
+function Wave({
   placement = "bottom",
   speed = 7.5,
   maxPoints = 2,
@@ -39,6 +43,7 @@ export default function Wave({
   delta = 60,
   color = "#005c99",
   gap,
+  flip
 }: WaveProps) {
 
   const styles = StyleSheet.create({
@@ -46,82 +51,29 @@ export default function Wave({
       position: "absolute",
       width: WIDTH,
       bottom: 50,
-      transform: [{ rotateX: "180deg" }, { rotateY: "180deg" }],
+      transform: [{ rotateX: "180deg" }, { rotateY: flip ? "0deg" :"180deg" }],
     },
     bottom: {
       position: "absolute",
       width: WIDTH,
       bottom: -55,
+      transform: [{ rotateY: flip ? "0deg" :"180deg" }],
     },
   })
 
+  const tick = useSharedValue(0)
+  const loop = useSharedValue(0)
+  const path = useSharedValue("")
+
   const AnimatedPath = Animated.createAnimatedComponent(Path)
-
-  let d = useSharedValue(buildPath(calculateWavePoints(0)))
-  const animatedProps = useAnimatedProps(() => ({ d: d.value }), [d.value])
-
-  let handle: number
-  let lastUpdate: number
-  let totalTime = 0
-
-  function calculateWavePoints(factor: number) {
-    const points = []
-
-    for (var i = 0; i <= maxPoints; i++) {
-      const x = (i / maxPoints) * width
-      const sinSeed = (factor + (i + (i % maxPoints))) * speed
-      const sinHeight = Math.sin(sinSeed / 100) * delta
-      const yPos = Math.sin(sinSeed / 100) * sinHeight + height
-      points.push({ x: x, y: yPos })
-    }
-
-    return points
-  }
-
-  function buildPath(points: { x: number, y: number }[]) {
-    let SVGString = "M " + [points[0].x, points[0].y].join(" ")
-
-    const cp0 = {
-      x: (points[1].x - points[0].x) / 2,
-      y: points[1].y - points[0].y + points[0].y + (points[1].y - points[0].y),
-    }
-
-    SVGString += " C " + [cp0.x, cp0.y, cp0.x, cp0.y, points[1].x, points[1].y].join(" ")
-
-    let prevCp = cp0
-
-    for (var i = 1; i < points.length - 1; i++) {
-      const cp1 = {
-        x: points[i].x - prevCp.x + points[i].x,
-        y: points[i].y - prevCp.y + points[i].y,
-      }
-
-      SVGString += " C " + [cp1.x, cp1.y, cp1.x, cp1.y, points[i + 1].x, points[i + 1].y].join(" ")
-      prevCp = cp1
-    }
-
-    SVGString += " L " + WIDTH + " " + HEIGHT
-    SVGString += " L 0 " + HEIGHT + " Z"
-    return SVGString
-  }
-
-  function tick() {
-    const now = window.Date.now()
-
-    if (lastUpdate) {
-      const elapsed = (now - lastUpdate) / 1000
-      lastUpdate = now
-      totalTime += elapsed
-      d.value = buildPath(calculateWavePoints(totalTime * Math.PI))
-    } else {
-      lastUpdate = now
-    }
-    handle = window.requestAnimationFrame(tick)
-  }
+  const animatedProps = useAnimatedProps(() => ({ d: path.value }), [path.value])
 
   useEffect(() => {
-    tick()
-    return () => window.cancelAnimationFrame(handle)
+    loop.value = withRepeat(withTiming(0, { duration: 0 }, () => {
+      path.value = WavePath(maxPoints, speed, delta).getPoints(tick.value * Math.PI, width, height).build(WIDTH, HEIGHT)
+      tick.value > 800 ? tick.value = 0 : tick.value += 0.1
+    }), -1, false)
+    return () => cancelAnimation(loop);
   }, [])
 
   return (
@@ -133,4 +85,4 @@ export default function Wave({
   )
 }
 
-
+export default Wave
