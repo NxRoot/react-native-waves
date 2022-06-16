@@ -42,7 +42,10 @@ import Wave from "react-native-waves"
 <Wave placement="bottom" gap={20} color="#003d66"/>
 ```
 
-
+## Performance
+* Simulator can run up to 4/6 waves at 60fps depending on the device.
+* This project was optimized to achieve full performance on any **physical device**.
+* UI updates are handled by [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) to optimize rendering and achieve 60fps.
 
 ## Props (Wave)
 
@@ -58,13 +61,10 @@ import Wave from "react-native-waves"
 | `gap`       | [number](https://github.com/NxRoot/react-native-waves#gap) | undefined            | wave gap              | gap between waves with equal placement |
 | `flip`       | [boolean](https://github.com/NxRoot/react-native-waves#flip) | false            | flip wave 180deg              |  |
 
-## Performance
-* Simulator can run up to 4/6 waves at 60fps depending on the device.
-* This project was optimized to achieve full performance on any **physical device**.
-* UI updates are handled by [react-native-reanimated](https://docs.swmansion.com/react-native-reanimated/) to optimize rendering and achieve 60fps.
+<br/>
 
 ## Run Example App ( [Expo](https://docs.expo.dev/get-started/installation/) )
-Example App can be found here: [https://github.com/NxRoot/react-native-waves/tree/master/example](https://github.com/NxRoot/react-native-waves/tree/master/example)
+**Clone app**
 
 ```
 git clone https://github.com/NxRoot/react-native-waves.git
