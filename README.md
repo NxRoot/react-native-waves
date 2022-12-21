@@ -7,9 +7,9 @@ Create beautiful wave animations using [React Native](https://reactnative.dev/)
 
 ## Demo 
 
-| 2 waves - bottom      | 2 waves - top/bottom   | 4 waves - top/bottom            |
-|-----------|--------|-------------------|
-| <img src="https://i.ibb.co/6sPTMNB/RPReplay-Final1655395380-1.gif" alt="Alt text" style="float: left" title="Optional title"> | <img src="https://i.ibb.co/ZgF9cbp/RPReplay-Final1655397179-3.gif" alt="Alt text" style="float: left" title="Optional title"> | <img src="https://i.ibb.co/SR6kd3B/RPReplay-Final1655390147.gif" alt="Alt text" style="float: left" title="Optional title"> |
+||
+|-|
+|  <img src="https://i.ibb.co/SR6kd3B/RPReplay-Final1655390147.gif" alt="Alt text" style="float: left" title="Optional title"> |
 
 
 
