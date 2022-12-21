@@ -14,12 +14,12 @@ Create beautiful wave animations using [React Native](https://reactnative.dev/)
 
 
 ## Installation
-```
+```ts
 npm i react-native-waves
 ```
 
 ## Usage
-```
+```ts
 import Wave from "react-native-waves"
 
 <Wave placement="bottom"/>
@@ -29,17 +29,17 @@ import Wave from "react-native-waves"
 ## Examples
 
 **Complex Wave**
-```
+```ts
 <Wave placement="bottom" speed={20} maxPoints={8} delta={30}/>
 ```
 
 **Multiple Waves**
-```
-<Wave placement="top" />
-<Wave placement="top" gap={20} color="#003d66"/>
+```ts
+<Wave placement="top"></Wave>
+<Wave placement="top" gap={20} color="#003d66"></Wave>
 
-<Wave placement="bottom" />
-<Wave placement="bottom" gap={20} color="#003d66"/>
+<Wave placement="bottom"></Wave>
+<Wave placement="bottom" gap={20} color="#003d66"></Wave>
 ```
 
 ## Performance
